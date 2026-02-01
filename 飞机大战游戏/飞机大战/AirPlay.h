@@ -5,24 +5,24 @@
 #include "tools.h"
 #include <time.h>
 
-//´°¿Ú´óĞ¡
-#define BGWEIGHT 400 //¿í
-#define BGHEIGHT 600 //¸ß
-//ÎÒ·½·É»ú´óĞ¡
+//çª—å£å¤§å°
+#define BGWEIGHT 400 //å®½
+#define BGHEIGHT 600 //é«˜
+//æˆ‘æ–¹é£æœºå¤§å°
 #define myAirWEIGHT 80
 #define myAirHEIGHT 90
-//·Éµú´óĞ¡
+//é£ç¢Ÿå¤§å°
 #define enemyPlaneWEIGHT 50
 #define enemyPlaneHEIGHT 50
-//×Óµ¯´óĞ¡
+//å­å¼¹å¤§å°
 #define BulletWEIGHT 10
 #define BulletHEIGHT 10
-//×Óµ¯ÊıÁ¿
+//å­å¼¹æ•°é‡
 #define BULLET_NUM 30
-//µĞ»úÊıÁ¿
+//æ•Œæœºæ•°é‡
 #define ENEMY_NUM 10
 
-IMAGE img[4];//Í¼Æ¬Êı×é
+IMAGE img[4];//å›¾ç‰‡æ•°ç»„
 IMAGE img_bullet[2];
 IMAGE img_enemy[2];
 IMAGE Boom[2];
@@ -106,11 +106,11 @@ void plane_draw(Plane* p) {
 }
 
 void draw() {
-	//Êä³ö±³¾°Í¼Æ¬
+	//è¾“å‡ºèƒŒæ™¯å›¾ç‰‡
 	putimage(0, 0, &img[0]);
-	//»æÖÆ·É»ú
+	//ç»˜åˆ¶é£æœº
 	plane_draw(&gamer);
-	//»æÖÆ×Óµ¯
+	//ç»˜åˆ¶å­å¼¹
 	for (int i = 0; i < BULLET_NUM; i++) {
 		if (!bullet[i].isDie)
 			putimagePNG(bullet[i].x, bullet[i].y, &img_bullet[0]);
@@ -124,25 +124,25 @@ void draw() {
 }
 
 void endPlane() {
-	int offset = 20; // Åö×²ÄÚËõÏñËØ£¬ÊıÖµÔ½´óÅĞ¶¨Ô½¿íËÉ£¨Ô½²»ÈİÒ×ËÀ£©
+	int offset = 17; // ç¢°æ’å†…ç¼©åƒç´ ï¼Œæ•°å€¼è¶Šå¤§åˆ¤å®šè¶Šå®½æ¾ï¼ˆè¶Šä¸å®¹æ˜“æ­»ï¼‰
 	for (int i = 0; i < ENEMY_NUM; i++) {
-		// Ö»ÓĞÔÚÆÁÄ»ÄÚÇÒÎ´ËÀÍöµÄµĞ»ú²Å¼ì²â
+		// åªæœ‰åœ¨å±å¹•å†…ä¸”æœªæ­»äº¡çš„æ•Œæœºæ‰æ£€æµ‹
 		if (enemy[i].isDie || enemy[i].y < 0) continue;
 
-		// Ëõ¼õÅĞ¶¨ÇøÓò£¬ÈÃÍæ¼Ò¸ĞÊÜ¸ü¹«Æ½
+		// ç¼©å‡åˆ¤å®šåŒºåŸŸï¼Œè®©ç©å®¶æ„Ÿå—æ›´å…¬å¹³
 		if (gamer.y + offset < enemy[i].y + img_enemy[0].getheight() - offset &&
 			gamer.y + img[1].getheight() - offset > enemy[i].y + offset &&
 			gamer.x + offset < enemy[i].x + img_enemy[0].getwidth() - offset &&
 			gamer.x + img[1].getwidth() - offset > enemy[i].x + offset) {
 
-			draw(); // ½â¾öºÚÆÁ£ºËÀÇ°ÏÈ»­×îºóÒ»Ö¡
+			draw(); // è§£å†³é»‘å±ï¼šæ­»å‰å…ˆç”»æœ€åä¸€å¸§
 			putimagePNG(BGWEIGHT / 2 - 50, BGHEIGHT / 2 - 50, &End[0]);
 			putimagePNG(gamer.x, gamer.y, &End[1]);
 
-			FlushBatchDraw(); // Ç¿ÖÆË¢ĞÂ»­Ãæµ½ÆÁÄ»
+			FlushBatchDraw(); // å¼ºåˆ¶åˆ·æ–°ç”»é¢åˆ°å±å¹•
 			EndBatchDraw();
 
-			MessageBox(GetHWnd(), _T("ÓÎÏ·½áÊø£¡"), _T("ÌáÊ¾"), MB_OK);
+			MessageBox(GetHWnd(), _T("æ¸¸æˆç»“æŸï¼"), _T("æç¤º"), MB_OK);
 			exit(0);
 		}
 	}
@@ -159,7 +159,7 @@ void plane_init(Plane* p,int x,int y) {
 
 
 
-//´´½¨µĞ»ú
+//åˆ›å»ºæ•Œæœº
 void createEnemy() {
 	for (int i = 0; i < ENEMY_NUM; i++)
 	{
@@ -189,7 +189,7 @@ void plane_move(Plane* p) {
 	if (GetAsyncKeyState(VK_SPACE)&& Timer(100,0) ){
 		createBullet();
 	}
-	if (Timer(1000, 1)) {  // µĞ»úÉú³É
+	if (Timer(1000, 1)) {  // æ•Œæœºç”Ÿæˆ
 		createEnemy();
 	}
 }	
@@ -207,9 +207,9 @@ void moveEnemy(){
 	}
 }
 
-//³õÊ¼»¯º¯Êı
+//åˆå§‹åŒ–å‡½æ•°
 void init(){
-	//¼ÓÔØÍ¼Æ¬
+	//åŠ è½½å›¾ç‰‡
 	loadimage(&img[0], "res\\beijing.png",BGWEIGHT,BGHEIGHT);
 	loadimage(&img[1], "res\\plane.png", myAirWEIGHT, myAirHEIGHT);
 	loadimage(&img[2], "res\\plane2.png", myAirWEIGHT, myAirHEIGHT);
@@ -223,13 +223,13 @@ void init(){
 	loadimage(&End[0], "res\\gameover.png", 100, 100);
 	loadimage(&End[1], "res\\planeboom.png", myAirWEIGHT,myAirHEIGHT);
 
-	//³õÊ¼»¯·É»ú
+	//åˆå§‹åŒ–é£æœº
 	plane_init(&gamer,160,500);
-	//³õÊ¼»¯×Óµ¯
+	//åˆå§‹åŒ–å­å¼¹
 	for (int i = 0; i < BULLET_NUM; i++) {
 		bullet[i].isDie = 1;
 	}
-	//³õÊ¼»¯µĞ»ú
+	//åˆå§‹åŒ–æ•Œæœº
 	for (int i = 0; i < ENEMY_NUM; i++) {
 		enemy[i].isDie = true;
 	}
@@ -269,6 +269,7 @@ void start() {
 	closegraph();
 	
 }
+
 
 
 
